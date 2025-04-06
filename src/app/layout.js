@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +32,9 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <div className="relative w-full h-[100dvh] pt-[75px] bg-gradient-to-br from-purple-800 via-pink-600 to-yellow-500 dark:from-blue-900 dark:via-black dark:to-gray-900 overflow-hidden">
-            <div className="w-full h-[100dvh] p-5">{children}</div>
+            <Suspense fallback={<div className="text-white">Loading...</div>}>
+              <div className="w-full h-[100dvh] p-5">{children}</div>
+            </Suspense>
           </div>
           <Toaster />
         </ThemeProvider>
